@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/kirillRomanenko/ws2021#readme",
   "dependencies": {
-    "crypto-js": "^4.0.0"
+    "crypto-js": "^4.0.0",
+    "jssha": "^3.2.0",
+    "sha3": "^2.1.4"
   }
 }
