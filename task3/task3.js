@@ -1,35 +1,24 @@
 const fs = require("fs");
-// const cryptoJS = require("crypto-js");
-// const jsSHA = require("jssha");
-const { SHA3 } = require('sha3');
+const { sha3_256,sha3_224,sha3_384,sha3_512 } = require('js-sha3');
 let sourceHash = fs.readFileSync("./task3/Task3-hash.txt", "utf8");
-console.log(sourceHash);
-console.log(sourceHash.length);
-console.log(sourceHash.length * 4);
 
-let dateStart = new Date (Date.UTC(2020));
-const dateEnd = new Date (Date.UTC(2020,11,31));
-console.log(dateStart);
-console.log(dateStart.getTime());
-console.log(dateEnd);
-console.log(dateEnd.getTime());
-let dateStartMilliseconds = dateStart.getTime();
-const dateEndMilliseconds = dateEnd.getTime();
-//1 000 мс * 60 секунд * 60 минут * 24 часа = 86 400 000 секунд
-//Количество миллисекунд в сутках неизменно и всегда равно 86 400 000.
-while (dateStartMilliseconds <= dateEndMilliseconds) {
-    const hash = new SHA3(256);
-    hash.update(String(dateStartMilliseconds));
-    // console.log(hash.digest("hex"));
-    distHash = hash.digest("hex");
-    // console.log(distHash);
-    if (distHash == sourceHash) {
-        console.log(dateStartMilliseconds);
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+let day = 1;
+console.log("длина хеша: ", sourceHash.length);
+console.log("размер: ", sourceHash.length * 4);
+
+while (true) {
+    let timeStamp = ((new Date(2020,0,day,3).getTime())/1000).toString();
+    let resultHash =sha3_256(timeStamp);
+
+    if (resultHash == sourceHash) {
+        console.log("день: ", (new Date(2020,0,day,3)).getDate());
+        console.log("месяц: ", (new Date(2020,0,day,3)).getMonth() + 1);
+        console.log("время в секундах: ", (new Date(2020,0,day,3)).getTime() / 1000);
+        break;
     }
-    // console.log(hash);
-    dateStartMilliseconds = dateStartMilliseconds + 86400000;
+    day++
 }
+
 
 
 
